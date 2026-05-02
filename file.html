@@ -1,0 +1,2895 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NourishWell | Wholesome Recipes for a Healthier Life</title>
+    <link rel="preconnect" href="[fonts.googleapis.com](https://fonts.googleapis.com)">
+    <link rel="preconnect" href="[fonts.gstatic.com](https://fonts.gstatic.com)" crossorigin>
+    <link href="[fonts.googleapis.com](https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@300;400;500;600&display=swap)" rel="stylesheet">
+    <style>
+        /* ========== CSS RESET & VARIABLES ========== */
+        :root {
+            --color-primary: #4a7c59;
+            --color-primary-dark: #3d6649;
+            --color-primary-light: #6b9b7a;
+            --color-secondary: #d4a373;
+            --color-secondary-light: #e9c46a;
+            --color-accent: #bc4749;
+            --color-accent-light: #e07a5f;
+            --color-cream: #fefae0;
+            --color-cream-dark: #f5f0d0;
+            --color-text: #2d3a2e;
+            --color-text-light: #5a6b5c;
+            --color-white: #ffffff;
+            --color-shadow: rgba(45, 58, 46, 0.1);
+            --font-heading: 'Playfair Display', Georgia, serif;
+            --font-body: 'Source Sans 3', 'Segoe UI', sans-serif;
+            --transition-fast: 0.2s ease;
+            --transition-medium: 0.3s ease;
+            --transition-slow: 0.5s ease;
+            --border-radius: 12px;
+            --border-radius-sm: 8px;
+            --max-width: 1200px;
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 2rem;
+            --spacing-lg: 3rem;
+            --spacing-xl: 5rem;
+        }
+
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--color-text);
+            line-height: 1.7;
+            background-color: var(--color-cream);
+            overflow-x: hidden;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: color var(--transition-fast);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        button {
+            font-family: inherit;
+            cursor: pointer;
+            border: none;
+            background: none;
+        }
+
+        /* ========== UTILITY CLASSES ========== */
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 var(--spacing-md);
+        }
+
+        .section {
+            padding: var(--spacing-xl) 0;
+        }
+
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 5vw, 2.75rem);
+            font-weight: 600;
+            color: var(--color-primary-dark);
+            text-align: center;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--color-text-light);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto var(--spacing-lg);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.875rem 2rem;
+            font-size: 1rem;
+            font-weight: 500;
+            border-radius: 50px;
+            transition: all var(--transition-medium);
+        }
+
+        .btn-primary {
+            background: var(--color-primary);
+            color: var(--color-white);
+            box-shadow: 0 4px 15px rgba(74, 124, 89, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: var(--color-primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(74, 124, 89, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--color-primary);
+            border: 2px solid var(--color-primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--color-primary);
+            color: var(--color-white);
+        }
+
+        .btn-accent {
+            background: var(--color-secondary);
+            color: var(--color-text);
+        }
+
+        .btn-accent:hover {
+            background: var(--color-secondary-light);
+        }
+
+        /* ========== SCROLL REVEAL ANIMATIONS ========== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .reveal-left.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .reveal-right.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* ========== HEADER & NAVIGATION ========== */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(254, 250, 224, 0.95);
+            backdrop-filter: blur(10px);
+            transition: all var(--transition-medium);
+        }
+
+        .header.scrolled {
+            box-shadow: 0 2px 20px var(--color-shadow);
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem var(--spacing-md);
+            max-width: var(--max-width);
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-primary-dark);
+        }
+
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-white);
+            font-size: 1.25rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            position: relative;
+            font-weight: 500;
+            color: var(--color-text);
+            padding: 0.5rem 0;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--color-primary);
+            transition: width var(--transition-medium);
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .nav-link:hover {
+            color: var(--color-primary);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            padding: 0.5rem;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            width: 28px;
+            height: 3px;
+            background: var(--color-primary-dark);
+            border-radius: 3px;
+            transition: all var(--transition-medium);
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        /* ========== HERO SECTION ========== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--color-cream) 0%, var(--color-cream-dark) 50%, #e8f5e9 100%);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 80%;
+            height: 150%;
+            background: radial-gradient(ellipse, rgba(74, 124, 89, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -20%;
+            width: 60%;
+            height: 100%;
+            background: radial-gradient(ellipse, rgba(212, 163, 115, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-lg);
+            align-items: center;
+            padding-top: 80px;
+        }
+
+        .hero-text {
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--color-white);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            color: var(--color-primary);
+            margin-bottom: var(--spacing-md);
+            box-shadow: 0 2px 10px var(--color-shadow);
+        }
+
+        .hero-badge span {
+            font-size: 1.1rem;
+        }
+
+        .hero-title {
+            font-family: var(--font-heading);
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 700;
+            color: var(--color-primary-dark);
+            line-height: 1.2;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .hero-title .highlight {
+            color: var(--color-secondary);
+            position: relative;
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            color: var(--color-text-light);
+            margin-bottom: var(--spacing-md);
+            max-width: 500px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: var(--spacing-sm);
+            flex-wrap: wrap;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: var(--spacing-lg);
+            margin-top: var(--spacing-lg);
+            padding-top: var(--spacing-lg);
+            border-top: 1px solid rgba(74, 124, 89, 0.2);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--color-primary);
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--color-text-light);
+        }
+
+        .hero-image {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-image-wrapper {
+            position: relative;
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(74, 124, 89, 0.2);
+            animation: morphing 8s ease-in-out infinite;
+        }
+
+        @keyframes morphing {
+            0%, 100% {
+                border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            }
+            25% {
+                border-radius: 58% 42% 75% 25% / 76% 46% 54% 24%;
+            }
+            50% {
+                border-radius: 50% 50% 33% 67% / 55% 27% 73% 45%;
+            }
+            75% {
+                border-radius: 33% 67% 58% 42% / 63% 68% 32% 37%;
+            }
+        }
+
+        .hero-img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            background: linear-gradient(135deg, var(--color-primary-light), var(--color-secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 8rem;
+        }
+
+        .floating-card {
+            position: absolute;
+            background: var(--color-white);
+            padding: 1rem 1.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: 0 10px 30px var(--color-shadow);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .floating-card-1 {
+            top: 10%;
+            right: -20px;
+            animation-delay: 0s;
+        }
+
+        .floating-card-2 {
+            bottom: 15%;
+            left: -30px;
+            animation-delay: 1.5s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .floating-card-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .floating-card-text {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--color-primary-dark);
+        }
+
+        .floating-card-sub {
+            font-size: 0.75rem;
+            color: var(--color-text-light);
+        }
+
+        /* ========== ABOUT SECTION ========== */
+        .about {
+            background: var(--color-white);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-xl);
+            align-items: center;
+        }
+
+        .about-image {
+            position: relative;
+        }
+
+        .about-img-main {
+            border-radius: var(--border-radius);
+            box-shadow: 0 20px 50px var(--color-shadow);
+            height: 500px;
+            object-fit: cover;
+            background: linear-gradient(135deg, #a8d5a2, var(--color-secondary-light));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 6rem;
+        }
+
+        .about-img-accent {
+            position: absolute;
+            bottom: -30px;
+            right: -30px;
+            width: 200px;
+            height: 200px;
+            border-radius: var(--border-radius);
+            border: 8px solid var(--color-white);
+            box-shadow: 0 10px 30px var(--color-shadow);
+            background: linear-gradient(135deg, var(--color-secondary), var(--color-accent-light));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .about-text h2 {
+            font-family: var(--font-heading);
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            color: var(--color-primary-dark);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .about-text p {
+            color: var(--color-text-light);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .about-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-sm);
+            margin-top: var(--spacing-md);
+        }
+
+        .about-feature {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .about-feature-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--color-cream);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+
+        .about-feature span {
+            font-weight: 500;
+            color: var(--color-text);
+        }
+
+        /* ========== RECIPES SECTION ========== */
+        .recipes {
+            background: linear-gradient(180deg, var(--color-cream) 0%, var(--color-white) 100%);
+        }
+
+        .recipe-filters {
+            display: flex;
+            justify-content: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .filter-btn {
+            padding: 0.75rem 1.5rem;
+            background: var(--color-white);
+            border: 2px solid var(--color-cream-dark);
+            border-radius: 50px;
+            font-weight: 500;
+            color: var(--color-text-light);
+            transition: all var(--transition-medium);
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--color-primary);
+            border-color: var(--color-primary);
+            color: var(--color-white);
+        }
+
+        .recipe-search {
+            max-width: 400px;
+            margin: 0 auto var(--spacing-lg);
+            position: relative;
+        }
+
+        .recipe-search input {
+            width: 100%;
+            padding: 1rem 1.5rem 1rem 3rem;
+            border: 2px solid var(--color-cream-dark);
+            border-radius: 50px;
+            font-size: 1rem;
+            font-family: inherit;
+            background: var(--color-white);
+            transition: border-color var(--transition-medium);
+        }
+
+        .recipe-search input:focus {
+            outline: none;
+            border-color: var(--color-primary);
+        }
+
+        .recipe-search-icon {
+            position: absolute;
+            left: 1.25rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.1rem;
+            color: var(--color-text-light);
+        }
+
+        .recipe-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: var(--spacing-md);
+        }
+
+        .recipe-card {
+            background: var(--color-white);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: 0 5px 20px var(--color-shadow);
+            transition: all var(--transition-medium);
+        }
+
+        .recipe-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px var(--color-shadow);
+        }
+
+        .recipe-card-image {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .recipe-card-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform var(--transition-slow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+
+        .recipe-card:hover .recipe-card-img {
+            transform: scale(1.05);
+        }
+
+        .recipe-card-category {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: var(--color-white);
+            padding: 0.375rem 0.875rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--color-primary);
+        }
+
+        .recipe-card-time {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(0, 0, 0, 0.6);
+            color: var(--color-white);
+            padding: 0.375rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .recipe-card-content {
+            padding: 1.5rem;
+        }
+
+        .recipe-card-title {
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--color-primary-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .recipe-card-description {
+            font-size: 0.9rem;
+            color: var(--color-text-light);
+            margin-bottom: 1rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .recipe-card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid var(--color-cream-dark);
+        }
+
+        .recipe-card-info {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .recipe-card-info span {
+            font-size: 0.8rem;
+            color: var(--color-text-light);
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .recipe-card-btn {
+            padding: 0.5rem 1rem;
+            background: var(--color-primary);
+            color: var(--color-white);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: background var(--transition-fast);
+        }
+
+        .recipe-card-btn:hover {
+            background: var(--color-primary-dark);
+        }
+
+        .recipe-card.hidden {
+            display: none;
+        }
+
+        /* ========== FEATURED RECIPES ========== */
+        .featured {
+            background: var(--color-primary-dark);
+            color: var(--color-white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .featured::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='[w3.org](http://www.w3.org/2000/svg)'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+
+        .featured .section-title {
+            color: var(--color-white);
+        }
+
+        .featured .section-subtitle {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .featured-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: var(--spacing-md);
+        }
+
+        .featured-main {
+            position: relative;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            height: 450px;
+        }
+
+        .featured-main-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            background: linear-gradient(135deg, var(--color-secondary), var(--color-accent-light));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 6rem;
+        }
+
+        .featured-main-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: var(--spacing-md);
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+        }
+
+        .featured-badge {
+            display: inline-block;
+            background: var(--color-secondary);
+            color: var(--color-text);
+            padding: 0.375rem 1rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 0.75rem;
+        }
+
+        .featured-main-title {
+            font-family: var(--font-heading);
+            font-size: 1.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .featured-main-desc {
+            font-size: 0.95rem;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+
+        .featured-side {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-md);
+        }
+
+        .featured-side-card {
+            flex: 1;
+            position: relative;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+
+        .featured-side-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            background: linear-gradient(135deg, var(--color-primary-light), var(--color-secondary-light));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .featured-side-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1rem;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+        }
+
+        .featured-side-title {
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+        }
+
+        /* ========== NUTRITION TIPS ========== */
+        .tips {
+            background: var(--color-white);
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--spacing-md);
+        }
+
+        .tip-card {
+            background: var(--color-cream);
+            padding: var(--spacing-md);
+            border-radius: var(--border-radius);
+            transition: all var(--transition-medium);
+            border: 2px solid transparent;
+        }
+
+        .tip-card:hover {
+            border-color: var(--color-primary-light);
+            transform: translateY(-5px);
+        }
+
+        .tip-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--color-white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            margin-bottom: var(--spacing-sm);
+            box-shadow: 0 5px 15px var(--color-shadow);
+        }
+
+        .tip-title {
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+            color: var(--color-primary-dark);
+            margin-bottom: 0.75rem;
+        }
+
+        .tip-text {
+            color: var(--color-text-light);
+            font-size: 0.95rem;
+        }
+
+        /* ========== TESTIMONIALS ========== */
+        .testimonials {
+            background: linear-gradient(135deg, var(--color-cream) 0%, #e8f5e9 100%);
+        }
+
+        .testimonial-slider {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonial-track {
+            display: flex;
+            transition: transform var(--transition-slow);
+        }
+
+        .testimonial-card {
+            min-width: 100%;
+            padding: 0 var(--spacing-md);
+        }
+
+        .testimonial-content {
+            background: var(--color-white);
+            padding: var(--spacing-lg);
+            border-radius: var(--border-radius);
+            box-shadow: 0 10px 40px var(--color-shadow);
+            text-align: center;
+        }
+
+        .testimonial-quote {
+            font-size: 3rem;
+            color: var(--color-primary-light);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .testimonial-text {
+            font-size: 1.1rem;
+            color: var(--color-text);
+            line-height: 1.8;
+            margin-bottom: var(--spacing-md);
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .testimonial-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--color-primary-light), var(--color-secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--color-white);
+        }
+
+        .testimonial-info h4 {
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            color: var(--color-primary-dark);
+        }
+
+        .testimonial-info p {
+            font-size: 0.875rem;
+            color: var(--color-text-light);
+        }
+
+        .testimonial-stars {
+            color: var(--color-secondary);
+            font-size: 1.1rem;
+            margin-top: 0.25rem;
+        }
+
+        .testimonial-nav {
+            display: flex;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-top: var(--spacing-md);
+        }
+
+        .testimonial-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--color-cream-dark);
+            border: 2px solid transparent;
+            transition: all var(--transition-medium);
+        }
+
+        .testimonial-dot.active {
+            background: var(--color-primary);
+            border-color: var(--color-primary);
+        }
+
+        .testimonial-dot:hover {
+            background: var(--color-primary-light);
+        }
+
+        /* ========== CONTACT SECTION ========== */
+        .contact {
+            background: var(--color-white);
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-xl);
+        }
+
+        .contact-info h3 {
+            font-family: var(--font-heading);
+            font-size: 1.75rem;
+            color: var(--color-primary-dark);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .contact-info > p {
+            color: var(--color-text-light);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .contact-details {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-sm);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .contact-item-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--color-cream);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+
+        .contact-item-text h4 {
+            font-weight: 600;
+            color: var(--color-text);
+            margin-bottom: 0.25rem;
+        }
+
+        .contact-item-text p {
+            font-size: 0.9rem;
+            color: var(--color-text-light);
+        }
+
+        .contact-social {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: var(--spacing-md);
+        }
+
+        .social-link {
+            width: 45px;
+            height: 45px;
+            background: var(--color-cream);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            transition: all var(--transition-medium);
+        }
+
+        .social-link:hover {
+            background: var(--color-primary);
+            color: var(--color-white);
+            transform: translateY(-3px);
+        }
+
+        .contact-form {
+            background: var(--color-cream);
+            padding: var(--spacing-lg);
+            border-radius: var(--border-radius);
+        }
+
+        .form-group {
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 500;
+            color: var(--color-text);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--color-cream-dark);
+            border-radius: var(--border-radius-sm);
+            font-size: 1rem;
+            font-family: inherit;
+            background: var(--color-white);
+            transition: border-color var(--transition-medium);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--color-primary);
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .form-group.error input,
+        .form-group.error textarea {
+            border-color: var(--color-accent);
+        }
+
+        .form-error {
+            color: var(--color-accent);
+            font-size: 0.85rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+
+        .form-group.error .form-error {
+            display: block;
+        }
+
+        .form-submit {
+            width: 100%;
+            padding: 1rem;
+            margin-top: var(--spacing-sm);
+        }
+
+        .form-success {
+            background: #d4edda;
+            color: #155724;
+            padding: 1rem;
+            border-radius: var(--border-radius-sm);
+            text-align: center;
+            display: none;
+        }
+
+        .form-success.show {
+            display: block;
+        }
+
+        /* ========== FOOTER ========== */
+        .footer {
+            background: var(--color-primary-dark);
+            color: var(--color-white);
+            padding: var(--spacing-xl) 0 var(--spacing-md);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .footer-brand .logo {
+            color: var(--color-white);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .footer-brand .logo-icon {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .footer-brand p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.95rem;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .footer-title {
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.95rem;
+            transition: color var(--transition-fast);
+        }
+
+        .footer-links a:hover {
+            color: var(--color-white);
+        }
+
+        .footer-newsletter input {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: none;
+            border-radius: var(--border-radius-sm);
+            font-size: 0.95rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-newsletter .btn {
+            width: 100%;
+        }
+
+        .footer-bottom {
+            padding-top: var(--spacing-md);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-bottom p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-bottom-links a {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+
+        .footer-bottom-links a:hover {
+            color: var(--color-white);
+        }
+
+        /* ========== BACK TO TOP ========== */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--color-primary);
+            color: var(--color-white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            box-shadow: 0 5px 20px rgba(74, 124, 89, 0.4);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all var(--transition-medium);
+            z-index: 999;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .back-to-top:hover {
+            background: var(--color-primary-dark);
+            transform: translateY(-3px);
+        }
+
+        /* ========== RECIPE MODAL ========== */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all var(--transition-medium);
+            padding: var(--spacing-md);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background: var(--color-white);
+            border-radius: var(--border-radius);
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: scale(0.9);
+            transition: transform var(--transition-medium);
+        }
+
+        .modal-overlay.active .modal {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            position: relative;
+            height: 250px;
+        }
+
+        .modal-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            background: linear-gradient(135deg, var(--color-primary-light), var(--color-secondary));
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 40px;
+            height: 40px;
+            background: var(--color-white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            color: var(--color-text);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            transition: all var(--transition-fast);
+        }
+
+        .modal-close:hover {
+            background: var(--color-accent);
+            color: var(--color-white);
+        }
+
+        .modal-body {
+            padding: var(--spacing-md);
+        }
+
+        .modal-title {
+            font-family: var(--font-heading);
+            font-size: 1.75rem;
+            color: var(--color-primary-dark);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .modal-meta {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: var(--spacing-md);
+            padding-bottom: var(--spacing-sm);
+            border-bottom: 1px solid var(--color-cream-dark);
+        }
+
+        .modal-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--color-text-light);
+            font-size: 0.9rem;
+        }
+
+        .modal-section-title {
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+            color: var(--color-primary-dark);
+            margin: var(--spacing-md) 0 var(--spacing-sm);
+        }
+
+        .modal-ingredients {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+        }
+
+        .modal-ingredients li {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--color-text-light);
+            font-size: 0.95rem;
+        }
+
+        .modal-ingredients li::before {
+            content: '✓';
+            color: var(--color-primary);
+            font-weight: bold;
+        }
+
+        .modal-instructions {
+            counter-reset: step;
+        }
+
+        .modal-instructions li {
+            position: relative;
+            padding-left: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--color-text-light);
+            font-size: 0.95rem;
+        }
+
+        .modal-instructions li::before {
+            counter-increment: step;
+            content: counter(step);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 24px;
+            height: 24px;
+            background: var(--color-primary);
+            color: var(--color-white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        /* ========== RESPONSIVE DESIGN ========== */
+        @media (max-width: 1024px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-description {
+                margin: 0 auto var(--spacing-md);
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .hero-stats {
+                justify-content: center;
+            }
+
+            .hero-image {
+                order: -1;
+                max-width: 400px;
+                margin: 0 auto;
+            }
+
+            .hero-img {
+                height: 350px;
+            }
+
+            .floating-card {
+                display: none;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .about-image {
+                order: -1;
+                max-width: 500px;
+                margin: 0 auto;
+            }
+
+            .featured-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .featured-side {
+                flex-direction: row;
+            }
+
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 350px;
+                height: 100vh;
+                background: var(--color-white);
+                flex-direction: column;
+                justify-content: center;
+                padding: var(--spacing-lg);
+                box-shadow: -10px 0 30px var(--color-shadow);
+                transition: right var(--transition-medium);
+            }
+
+            .nav-menu.active {
+                right: 0;
+            }
+
+            .nav-link {
+                font-size: 1.25rem;
+                padding: 0.75rem 0;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .hero {
+                min-height: auto;
+                padding: 120px 0 var(--spacing-xl);
+            }
+
+            .hero-stats {
+                flex-wrap: wrap;
+                gap: var(--spacing-md);
+            }
+
+            .about-features {
+                grid-template-columns: 1fr;
+            }
+
+            .about-img-accent {
+                width: 150px;
+                height: 150px;
+                bottom: -20px;
+                right: -20px;
+            }
+
+            .featured-main {
+                height: 350px;
+            }
+
+            .featured-side {
+                flex-direction: column;
+            }
+
+            .featured-side-card {
+                height: 200px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-brand .logo {
+                justify-content: center;
+            }
+
+            .contact-social {
+                justify-content: center;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .modal-ingredients {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .recipe-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .btn {
+                padding: 0.75rem 1.5rem;
+                font-size: 0.9rem;
+            }
+
+            .section {
+                padding: var(--spacing-lg) 0;
+            }
+
+            .tips-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <nav class="nav container">
+            <a href="#home" class="logo">
+                <div class="logo-icon">🥗</div>
+                <span>NourishWell</span>
+            </a>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#home" class="nav-link active">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#recipes" class="nav-link">Recipes</a></li>
+                <li><a href="#featured" class="nav-link">Featured</a></li>
+                <li><a href="#tips" class="nav-link">Nutrition Tips</a></li>
+                <li><a href="#testimonials" class="nav-link">Testimonials</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero section" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <div class="hero-badge">
+                        <span>🌿</span>
+                        Fresh & Nutritious Recipes
+                    </div>
+                    <h1 class="hero-title">
+                        Wholesome Recipes for a <span class="highlight">Healthier Life</span>
+                    </h1>
+                    <p class="hero-description">
+                        Discover delicious, nutrient-rich recipes crafted with fresh ingredients. 
+                        Transform your meals into nourishing experiences that fuel your body and delight your taste buds.
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="#recipes" class="btn btn-primary">
+                            Explore Recipes
+                            <span>→</span>
+                        </a>
+                        <a href="#about" class="btn btn-secondary">Learn More</a>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">500+</div>
+                            <div class="stat-label">Recipes</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">50K+</div>
+                            <div class="stat-label">Happy Cooks</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">100%</div>
+                            <div class="stat-label">Natural</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <div class="hero-image-wrapper">
+                        <div class="hero-img">🥗</div>
+                    </div>
+                    <div class="floating-card floating-card-1">
+                        <div class="floating-card-icon">🥑</div>
+                        <div class="floating-card-text">Avocado Toast</div>
+                        <div class="floating-card-sub">Ready in 10 min</div>
+                    </div>
+                    <div class="floating-card floating-card-2">
+                        <div class="floating-card-icon">⭐</div>
+                        <div class="floating-card-text">4.9 Rating</div>
+                        <div class="floating-card-sub">From 2.5K reviews</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about section" id="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-image reveal-left">
+                    <div class="about-img-main">🌱</div>
+                    <div class="about-img-accent">🍳</div>
+                </div>
+                <div class="about-text reveal-right">
+                    <h2>Our Philosophy on Healthy Eating</h2>
+                    <p>
+                        At NourishWell, we believe that healthy eating should never compromise on taste. 
+                        Our mission is to make nutritious cooking accessible, enjoyable, and sustainable for everyone.
+                    </p>
+                    <p>
+                        Every recipe we create emphasizes balanced nutrition, incorporating whole foods, 
+                        fresh vegetables, lean proteins, and healthy fats. We focus on ingredients that 
+                        not only nourish your body but also satisfy your palate.
+                    </p>
+                    <p>
+                        Whether you're a seasoned chef or just starting your healthy eating journey, 
+                        our carefully curated recipes will guide you toward a more vibrant, energetic lifestyle.
+                    </p>
+                    <div class="about-features">
+                        <div class="about-feature">
+                            <div class="about-feature-icon">🥬</div>
+                            <span>Fresh Ingredients</span>
+                        </div>
+                        <div class="about-feature">
+                            <div class="about-feature-icon">⚖️</div>
+                            <span>Balanced Nutrition</span>
+                        </div>
+                        <div class="about-feature">
+                            <div class="about-feature-icon">🌿</div>
+                            <span>Whole Foods</span>
+                        </div>
+                        <div class="about-feature">
+                            <div class="about-feature-icon">💚</div>
+                            <span>Sustainable Choices</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recipes Section -->
+    <section class="recipes section" id="recipes">
+        <div class="container">
+            <h2 class="section-title reveal">Our Recipe Collection</h2>
+            <p class="section-subtitle reveal">
+                Explore our carefully curated recipes organized by meal type. 
+                Each dish is designed to maximize nutrition without sacrificing flavor.
+            </p>
+
+            <div class="recipe-search reveal">
+                <span class="recipe-search-icon">🔍</span>
+                <input type="text" id="recipeSearch" placeholder="Search recipes...">
+            </div>
+
+            <div class="recipe-filters reveal">
+                <button class="filter-btn active" data-filter="all">All Recipes</button>
+                <button class="filter-btn" data-filter="breakfast">Breakfast</button>
+                <button class="filter-btn" data-filter="lunch">Lunch</button>
+                <button class="filter-btn" data-filter="dinner">Dinner</button>
+                <button class="filter-btn" data-filter="snacks">Snacks</button>
+                <button class="filter-btn" data-filter="desserts">Desserts</button>
+            </div>
+
+            <div class="recipe-grid" id="recipeGrid">
+                <!-- Breakfast Recipes -->
+                <article class="recipe-card reveal" data-category="breakfast">
+                    <div class="recipe-card-image" style="background: linear-gradient(135deg, #ffecd2, #fcb69f);">
+                        <div class="recipe-card-img">🥣</div>
+                        <span class="recipe-card-category">Breakfast</span>
+                        <span class="recipe-card-time">⏱ 15 min</span>
+                    </div>
+                    <div class="recipe-card-content">
+                        <h3 class="recipe-card-title">Overnight Oats with Berries</h3>
+                        <p class="recipe-card-description">
+                            Creamy oats soaked overnight with fresh berries, honey, and chia seeds for a fiber-rich start.
+                        </p>
+                        <div class="recipe-card-meta">
+                            <div class="recipe-card-info">
+                                <span>🔥 320 cal</span>
+                                <span>🥗 High Fiber</span>
+                            </div>
+                            <button class="recipe-card-btn" data-recipe="overnight-oats">View Recipe</button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="recipe-card reveal" data-category="breakfast">
+                    <div class="recipe-card-image" style="background: linear-gradient(135deg, #a8e063, #56ab2f);">
+                        <div class="recipe-card-img">🥑</div>
+                        <span class="recipe-card-category">Breakfast</span>
+                        <span class="recipe-card-time">⏱ 10 min</span>
+                    </div>
+                    <div class="recipe-card-content">
+                        <h3 class="recipe-card-title">Avocado Toast Supreme</h3>
+                        <p class="recipe-card-description">
+                            Whole grain toast topped with mashed avocado, poached egg, and microgreens.
+                        </p>
+                        <div class="recipe-card-meta">
+                            <div class="recipe-card-info">
+                                <span>🔥 380 cal</span>
+                                <span>💪 Protein</span>
+                            </div>
+                            <button class="recipe-card-btn" data-recipe="avocado-toast">View Recipe</button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Lunch Recipes -->
+                <article class="recipe-card reveal" data-category="lunch">
+                    <div class="recipe-card-image" style="background: linear-gradient(135deg, #667eea, #764ba2);">
+                        <div class="recipe-card-img">🥗</div>
+                        <span class="recipe-card-category">Lunch</span>
+                        <span class="recipe-card-time">⏱ 20 min</span>
+                    </div>
+                    <div class="recipe-card-content">
+                        <h3 class="recipe-card-title">Mediterranean Quinoa Bowl</h3>
+                        <p class="recipe-card-description">
+                            Fluffy quinoa with cucumbers, tomatoes, feta, olives, and lemon-herb dressing.
+                        </p>
+                        <div class="recipe-card-meta">
+                            <div class="recipe-card-info">
+                                <span>🔥 420 cal</span>
+                                <span>🌿 Vegan Option</span>
+                            </div>
+                            <button class="recipe-card-btn" data-recipe="quinoa-bowl">View Recipe</button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="recipe-card reveal" data-category="lunch">
+                    <div class="recipe-card-image" style="background: linear-gradient(135deg, #f093fb, #f5576c);">
+                        <div class="recipe-card-img">🌯</div>
+                        <span class="recipe-card-category">Lunch</span>
+                        <span class="recipe-card-time">⏱ 15 min</span>
+                    </div>
+                    <div class="recipe-card-content">
+                        <h3 class="recipe-card-title">Grilled Chicken Lettuce Wraps</h3>
+                        <p class="recipe-card-description">
+                            Light and refreshing wraps with grilled chicken, crunchy veggies, and Asian-inspired sauce.
+                        </p>
+                        <div class="recipe-card-meta">
+                            <div class="recipe-card-info">
+                                <span>🔥 290 cal</span>
+                                <span>💪 High Protein</span>
+                            </div>
+                            <button class="recipe-card-btn" data-recipe="lettuce-wraps">View Recipe</button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Dinner Recipes -->
+                <article class="recipe-card reveal" data-category="dinner">
+                    <div class="recipe-card-image" style="background: linear-gradient(135deg, #ff9a9e, #fecfef);">
+                        <div class="recipe-card-img">🐟</div>
+                        <span class="recipe-card-category">Dinner</span>
+                        <span class="recipe-card-time">⏱ 30 min</span>
+                    </div>
+                    <div class="recipe-card-content">
+                        <h3 class="recipe-card-title">Herb-Crusted Salmon</h3>
+                        <p class="recipe-card-description">
+                            Omega-3 rich salmon fillet with a crispy herb crust, served with roasted vegetables.
+                        </p>
+                        <div class="recipe-card-meta">
+                            <div class="recipe-card-info">
+                                <span>🔥 450 cal</span>
+                                <span>🐟 Omega-3</span>
+                            </div>
+                            <button class="recipe-card-btn" data-recipe="herb-salmon">View Recipe</button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="recipe-card reveal" data-category="dinner">
+                    <div class="recipe-card-image" style="background: linear-gradient(135deg, #4facfe, #00f2fe);">
+                        <div class="recipe-card-img">🍝</div>
+                        <span class="recipe-card-category">Dinner</span>
+                        <span class="recipe-card-time">⏱ 35 min</span>
+                    </div>
+                    <div class="recipe-card-content">
+                        <h3 class="recipe-card-title">Zucchini Noodles Primavera</h3>
+                        <p class="recipe-card-description">
+                            Low-carb zucchini noodles tossed with colorful vegetables in a light garlic sauce.
+                        </p>
+                        <div class="recipe-card-meta">
+                            <div class="recipe-card-info">
+                                <span>🔥 280 cal</span>
+                                <span>🥬 Low Carb</span>
+                            </div>
+                            <button class="recipe-card-btn" data-recipe="zucchini-noodles">View Recipe</button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Snacks -->
+                <article class="recipe-card reveal" data-category="snacks">
+                    <div class="recipe-card-image" style="background: linear-gradient(135deg, #f5af19, #f12711);">
+                        <div class="recipe-card-img">🥜</div>
+                        <span class="recipe-card-category">Snacks</span>
+                        <span class="recipe-card-time">⏱ 5 min</span>
+                    </div>
+                    <div class="recipe-card-content">
+                        <h3 class="recipe-card-title">Energy Protein Balls</h3>
+                        <p class="recipe-card-description">
+                            No-bake snacks made with oats, almond butter, honey, and dark chocolate chips.
+                        </p>
+                        <div class="recipe-card-meta">
+                            <div class="recipe-card-info">
+                                <span>🔥 150 cal</span>
+                                <span>⚡ Energy</span>
+                            </div>
+                            <button class="recipe-card-btn" data-recipe="protein-balls">View Recipe</button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="recipe-card reveal" data-category="snacks">
+                    <div class="recipe-card-image" style="background: linear-gradient(135deg, #11998e, #38ef7d);">
+                        <div class="recipe-card-img">🥒</div>
+                        <span class="recipe-card-category">Snacks</span>
+                        <span class="recipe-card-time">⏱ 10 min</span>
+                    </div>
+                    <div class="recipe-card-content">
+                        <h3 class="recipe-card-title">Hummus Veggie Platter</h3>
+                        <p class="recipe-card-description">
+                            Creamy homemade hummus served with an assortment of fresh-cut vegetables.
+                        </p>
+                        <div class="recipe-card-meta">
+                            <div class="recipe-card-info">
+                                <span>🔥 180 cal</span>
+                                <span>🌿 Plant-Based</span>
+                            </div>
+                            <button class="recipe-card-btn" data-recipe="hummus-platter">View Recipe</button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Desserts -->
+                <article class="recipe-card reveal" data-category="desserts">
+                    <div class="recipe-card-image" style="background: linear-gradient(135deg, #a18cd1, #fbc2eb);">
+                        <div class="recipe-card-img">🍓</div>
+                        <span class="recipe-card-category">Desserts</span>
+                        <span class="recipe-card-time">⏱ 15 min</span>
+                    </div>
+                    <div class="recipe-card-content">
+                        <h3 class="recipe-card-title">Greek Yogurt Parfait</h3>
+                        <p class="recipe-card-description">
+                            Layered Greek yogurt with fresh berries, granola, and a drizzle of raw honey.
+                        </p>
+                        <div class="recipe-card-meta">
+                            <div class="recipe-card-info">
+                                <span>🔥 220 cal</span>
+                                <span>💪 Protein</span>
+                            </div>
+                            <button class="recipe-card-btn" data-recipe="yogurt-parfait">View Recipe</button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="recipe-card reveal" data-category="desserts">
+                    <div class="recipe-card-image" style="background: linear-gradient(135deg, #654ea3, #eaafc8);">
+                        <div class="recipe-card-img">🍫</div>
+                        <span class="recipe-card-category">Desserts</span>
+                        <span class="recipe-card-time">⏱ 20 min</span>
+                    </div>
+                    <div class="recipe-card-content">
+                        <h3 class="recipe-card-title">Avocado Chocolate Mousse</h3>
+                        <p class="recipe-card-description">
+                            Rich and creamy chocolate mousse made with ripe avocados and dark cacao.
+                        </p>
+                        <div class="recipe-card-meta">
+                            <div class="recipe-card-info">
+                                <span>🔥 250 cal</span>
+                                <span>🌿 Vegan</span>
+                            </div>
+                            <button class="recipe-card-btn" data-recipe="choco-mousse">View Recipe</button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Recipes Section -->
+    <section class="featured section" id="featured">
+        <div class="container">
+            <h2 class="section-title reveal">Featured This Season</h2>
+            <p class="section-subtitle reveal">
+                Handpicked recipes that highlight the best seasonal ingredients and trending flavors.
+            </p>
+
+            <div class="featured-grid reveal">
+                <div class="featured-main">
+                    <div class="featured-main-img">🥙</div>
+                    <div class="featured-main-content">
+                        <span class="featured-badge">⭐ Editor's Pick</span>
+                        <h3 class="featured-main-title">Spring Garden Buddha Bowl</h3>
+                        <p class="featured-main-desc">
+                            A vibrant bowl featuring seasonal greens, roasted chickpeas, and tahini dressing.
+                        </p>
+                        <a href="#" class="btn btn-accent">Get the Recipe</a>
+                    </div>
+                </div>
+                <div class="featured-side">
+                    <div class="featured-side-card">
+                        <div class="featured-side-img">🍲</div>
+                        <div class="featured-side-content">
+                            <span class="featured-badge">🔥 Trending</span>
+                            <h4 class="featured-side-title">Coconut Curry Lentil Soup</h4>
+                        </div>
+                    </div>
+                    <div class="featured-side-card">
+                        <div class="featured-side-img">🥤</div>
+                        <div class="featured-side-content">
+                            <span class="featured-badge">💚 New</span>
+                            <h4 class="featured-side-title">Green Detox Smoothie</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Nutrition Tips Section -->
+    <section class="tips section" id="tips">
+        <div class="container">
+            <h2 class="section-title reveal">Nutrition Tips & Insights</h2>
+            <p class="section-subtitle reveal">
+                Expert advice on healthy cooking practices and maximizing the nutritional value of your meals.
+            </p>
+
+            <div class="tips-grid">
+                <article class="tip-card reveal">
+                    <div class="tip-icon">🌈</div>
+                    <h3 class="tip-title">Eat the Rainbow</h3>
+                    <p class="tip-text">
+                        Different colored fruits and vegetables contain unique phytonutrients. 
+                        Aim to include at least 3-5 different colors in your daily meals for optimal nutrition.
+                    </p>
+                </article>
+
+                <article class="tip-card reveal">
+                    <div class="tip-icon">🥩</div>
+                    <h3 class="tip-title">Prioritize Protein</h3>
+                    <p class="tip-text">
+                        Include a quality protein source at each meal to maintain muscle mass, 
+                        boost metabolism, and keep you feeling satisfied longer.
+                    </p>
+                </article>
+
+                <article class="tip-card reveal">
+                    <div class="tip-icon">🫒</div>
+                    <h3 class="tip-title">Healthy Fats Matter</h3>
+                    <p class="tip-text">
+                        Don't fear fats! Olive oil, avocados, nuts, and fatty fish provide essential 
+                        fatty acids that support brain health and nutrient absorption.
+                    </p>
+                </article>
+
+                <article class="tip-card reveal">
+                    <div class="tip-icon">💧</div>
+                    <h3 class="tip-title">Stay Hydrated</h3>
+                    <p class="tip-text">
+                        Proper hydration supports digestion, energy levels, and overall health. 
+                        Aim for 8 glasses of water daily, more if you're active.
+                    </p>
+                </article>
+
+                <article class="tip-card reveal">
+                    <div class="tip-icon">🥬</div>
+                    <h3 class="tip-title">Fiber is Your Friend</h3>
+                    <p class="tip-text">
+                        High-fiber foods promote gut health, regulate blood sugar, and help maintain 
+                        a healthy weight. Include whole grains, legumes, and vegetables daily.
+                    </p>
+                </article>
+
+                <article class="tip-card reveal">
+                    <div class="tip-icon">🧂</div>
+                    <h3 class="tip-title">Season Wisely</h3>
+                    <p class="tip-text">
+                        Use herbs, spices, citrus, and vinegars to add flavor without excess sodium. 
+                        Many spices also offer additional health benefits.
+                    </p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials section" id="testimonials">
+        <div class="container">
+            <h2 class="section-title reveal">What Our Community Says</h2>
+            <p class="section-subtitle reveal">
+                Real stories from people who have transformed their eating habits with our recipes.
+            </p>
+
+            <div class="testimonial-slider reveal">
+                <div class="testimonial-track" id="testimonialTrack">
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <div class="testimonial-quote">"</div>
+                            <p class="testimonial-text">
+                                NourishWell completely changed how I approach cooking. The recipes are 
+                                simple to follow, absolutely delicious, and my whole family loves them. 
+                                I've lost 15 pounds and have so much more energy!
+                            </p>
+                            <div class="testimonial-author">
+                                <div class="testimonial-avatar">SE</div>
+                                <div class="testimonial-info">
+                                    <h4>Sarah E.</h4>
+                                    <p>Home Cook, California</p>
+                                    <div class="testimonial-stars">★★★★★</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <div class="testimonial-quote">"</div>
+                            <p class="testimonial-text">
+                                As a busy professional, I never thought I could eat healthy consistently. 
+                                These meal prep-friendly recipes have been a game-changer. The Mediterranean 
+                                Quinoa Bowl is now my go-to lunch!
+                            </p>
+                            <div class="testimonial-author">
+                                <div class="testimonial-avatar">MT</div>
+                                <div class="testimonial-info">
+                                    <h4>Michael T.</h4>
+                                    <p>Software Engineer, New York</p>
+                                    <div class="testimonial-stars">★★★★★</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <div class="testimonial-quote">"</div>
+                            <p class="testimonial-text">
+                                The nutrition tips section is incredibly informative. I've learned so much 
+                                about balanced eating without feeling restricted. The healthy desserts 
+                                satisfy my sweet tooth guilt-free!
+                            </p>
+                            <div class="testimonial-author">
+                                <div class="testimonial-avatar">JL</div>
+                                <div class="testimonial-info">
+                                    <h4>Jennifer L.</h4>
+                                    <p>Yoga Instructor, Colorado</p>
+                                    <div class="testimonial-stars">★★★★★</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-nav" id="testimonialNav">
+                    <button class="testimonial-dot active" data-slide="0"></button>
+                    <button class="testimonial-dot" data-slide="1"></button>
+                    <button class="testimonial-dot" data-slide="2"></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact section" id="contact">
+        <div class="container">
+            <h2 class="section-title reveal">Get in Touch</h2>
+            <p class="section-subtitle reveal">
+                Have questions, recipe suggestions, or just want to say hello? We'd love to hear from you!
+            </p>
+
+            <div class="contact-content">
+                <div class="contact-info reveal-left">
+                    <h3>Let's Connect</h3>
+                    <p>
+                        We're always excited to connect with fellow food enthusiasts. 
+                        Reach out for recipe requests, collaboration opportunities, or nutritional questions.
+                    </p>
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <div class="contact-item-icon">📧</div>
+                            <div class="contact-item-text">
+                                <h4>Email</h4>
+                                <p>hello@nourishwell.com</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-item-icon">📍</div>
+                            <div class="contact-item-text">
+                                <h4>Location</h4>
+                                <p>San Francisco, California</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-item-icon">⏰</div>
+                            <div class="contact-item-text">
+                                <h4>Response Time</h4>
+                                <p>Within 24-48 hours</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="contact-social">
+                        <a href="#" class="social-link" aria-label="Instagram">📷</a>
+                        <a href="#" class="social-link" aria-label="Facebook">📘</a>
+                        <a href="#" class="social-link" aria-label="Pinterest">📌</a>
+                        <a href="#" class="social-link" aria-label="YouTube">▶️</a>
+                    </div>
+                </div>
+
+                <div class="contact-form reveal-right">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Full Name *</label>
+                            <input type="text" id="name" name="name" required>
+                            <span class="form-error">Please enter your name</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" required>
+                            <span class="form-error">Please enter a valid email</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Your Message *</label>
+                            <textarea id="message" name="message" required></textarea>
+                            <span class="form-error">Please enter your message</span>
+                        </div>
+                        <button type="submit" class="btn btn-primary form-submit">
+                            Send Message
+                            <span>→</span>
+                        </button>
+                        <div class="form-success" id="formSuccess">
+                            ✓ Thank you! Your message has been sent successfully.
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="#home" class="logo">
+                        <div class="logo-icon">🥗</div>
+                        <span>NourishWell</span>
+                    </a>
+                    <p>
+                        Empowering you to make healthier food choices through delicious, 
+                        nutritious recipes and expert guidance.
+                    </p>
+                    <div class="contact-social">
+                        <a href="#" class="social-link" aria-label="Instagram">📷</a>
+                        <a href="#" class="social-link" aria-label="Facebook">📘</a>
+                        <a href="#" class="social-link" aria-label="Pinterest">📌</a>
+                        <a href="#" class="social-link" aria-label="YouTube">▶️</a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4 class="footer-title">Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#recipes">Recipes</a></li>
+                        <li><a href="#tips">Nutrition Tips</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4 class="footer-title">Categories</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Breakfast</a></li>
+                        <li><a href="#">Lunch</a></li>
+                        <li><a href="#">Dinner</a></li>
+                        <li><a href="#">Snacks</a></li>
+                        <li><a href="#">Healthy Desserts</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4 class="footer-title">Newsletter</h4>
+                    <p style="color: rgba(255,255,255,0.7); font-size: 0.9rem; margin-bottom: 1rem;">
+                        Get weekly recipes and tips delivered to your inbox.
+                    </p>
+                    <div class="footer-newsletter">
+                        <input type="email" placeholder="Your email address">
+                        <button class="btn btn-accent">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 NourishWell. All rights reserved.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
+
+    <!-- Recipe Modal -->
+    <div class="modal-overlay" id="recipeModal">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-img" id="modalImg">🍽️</div>
+                <button class="modal-close" id="modalClose">✕</button>
+            </div>
+            <div class="modal-body">
+                <h2 class="modal-title" id="modalTitle">Recipe Title</h2>
+                <div class="modal-meta">
+                    <span id="modalTime">⏱ 20 min</span>
+                    <span id="modalCal">🔥 350 cal</span>
+                    <span id="modalServings">👥 4 servings</span>
+                </div>
+                <p id="modalDescription">Recipe description goes here.</p>
+                
+                <h3 class="modal-section-title">Ingredients</h3>
+                <ul class="modal-ingredients" id="modalIngredients">
+                    <li>Ingredient 1</li>
+                    <li>Ingredient 2</li>
+                </ul>
+                
+                <h3 class="modal-section-title">Instructions</h3>
+                <ol class="modal-instructions" id="modalInstructions">
+                    <li>Step 1</li>
+                    <li>Step 2</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ========== RECIPE DATA ==========
+        const recipes = {
+            'overnight-oats': {
+                title: 'Overnight Oats with Berries',
+                emoji: '🥣',
+                time: '15 min',
+                calories: '320 cal',
+                servings: '2 servings',
+                description: 'Creamy oats soaked overnight with fresh berries, honey, and chia seeds for a fiber-rich start to your day. This make-ahead breakfast is perfect for busy mornings.',
+                ingredients: [
+                    '1 cup rolled oats',
+                    '1 cup almond milk',
+                    '½ cup Greek yogurt',
+                    '2 tbsp chia seeds',
+                    '1 tbsp honey or maple syrup',
+                    '½ cup mixed berries',
+                    '¼ tsp vanilla extract',
+                    'Pinch of cinnamon'
+                ],
+                instructions: [
+                    'In a jar or container, combine oats, almond milk, Greek yogurt, chia seeds, honey, vanilla, and cinnamon.',
+                    'Stir well to combine all ingredients evenly.',
+                    'Cover and refrigerate overnight, or for at least 4 hours.',
+                    'In the morning, stir the oats and add more milk if desired for consistency.',
+                    'Top with fresh berries and enjoy cold or gently warmed.'
+                ]
+            },
+            'avocado-toast': {
+                title: 'Avocado Toast Supreme',
+                emoji: '🥑',
+                time: '10 min',
+                calories: '380 cal',
+                servings: '2 servings',
+                description: 'Whole grain toast topped with perfectly mashed avocado, a poached egg, and fresh microgreens. A nutrient-dense breakfast that keeps you energized.',
+                ingredients: [
+                    '2 slices whole grain bread',
+                    '1 ripe avocado',
+                    '2 eggs',
+                    'Handful of microgreens',
+                    'Red pepper flakes',
+                    'Sea salt and black pepper',
+                    '1 tbsp lemon juice',
+                    '1 tbsp olive oil'
+                ],
+                instructions: [
+                    'Toast the bread slices until golden and crispy.',
+                    'Cut the avocado in half, remove pit, and scoop flesh into a bowl. Mash with lemon juice, salt, and pepper.',
+                    'Bring a pot of water to a gentle simmer. Create a whirlpool and crack eggs into the center for poaching.',
+                    'Poach eggs for 3-4 minutes until whites are set but yolks are still runny.',
+                    'Spread mashed avocado on toast, top with poached egg, microgreens, olive oil drizzle, and red pepper flakes.'
+                ]
+            },
+            'quinoa-bowl': {
+                title: 'Mediterranean Quinoa Bowl',
+                emoji: '🥗',
+                time: '20 min',
+                calories: '420 cal',
+                servings: '4 servings',
+                description: 'Fluffy quinoa with cucumbers, tomatoes, feta cheese, kalamata olives, and a bright lemon-herb dressing. A perfect lunch that travels well.',
+                ingredients: [
+                    '1 cup quinoa',
+                    '1 cucumber, diced',
+                    '1 cup cherry tomatoes, halved',
+                    '½ cup kalamata olives',
+                    '½ cup feta cheese, crumbled',
+                    '¼ cup fresh parsley, chopped',
+                    '3 tbsp olive oil',
+                    '2 tbsp lemon juice',
+                    '1 garlic clove, minced',
+                    'Salt and pepper to taste'
+                ],
+                instructions: [
+                    'Cook quinoa according to package directions. Let cool to room temperature.',
+                    'While quinoa cools, prepare the dressing by whisking olive oil, lemon juice, garlic, salt, and pepper.',
+                    'In a large bowl, combine cooled quinoa, cucumber, tomatoes, olives, and parsley.',
+                    'Pour dressing over the salad and toss to combine.',
+                    'Top with crumbled feta cheese and serve immediately or refrigerate for later.'
+                ]
+            },
+            'lettuce-wraps': {
+                title: 'Grilled Chicken Lettuce Wraps',
+                emoji: '🌯',
+                time: '15 min',
+                calories: '290 cal',
+                servings: '4 servings',
+                description: 'Light and refreshing wraps featuring grilled chicken, crunchy vegetables, and an Asian-inspired peanut sauce. Low carb and high protein.',
+                ingredients: [
+                    '1 lb chicken breast',
+                    '1 head butter lettuce',
+                    '1 cup shredded carrots',
+                    '1 cucumber, julienned',
+                    '½ cup edamame',
+                    '3 tbsp peanut butter',
+                    '2 tbsp soy sauce',
+                    '1 tbsp rice vinegar',
+                    '1 tbsp honey',
+                    'Sesame seeds for garnish'
+                ],
+                instructions: [
+                    'Season chicken with salt, pepper, and a drizzle of soy sauce. Grill until cooked through, about 6-7 minutes per side.',
+                    'Let chicken rest for 5 minutes, then slice into thin strips.',
+                    'Make the sauce by whisking peanut butter, soy sauce, rice vinegar, and honey until smooth.',
+                    'Separate lettuce leaves and arrange on a platter.',
+                    'Fill each leaf with chicken, carrots, cucumber, and edamame. Drizzle with sauce and sprinkle sesame seeds.'
+                ]
+            },
+            'herb-salmon': {
+                title: 'Herb-Crusted Salmon',
+                emoji: '🐟',
+                time: '30 min',
+                calories: '450 cal',
+                servings: '4 servings',
+                description: 'Omega-3 rich salmon fillet with a crispy herb crust, served alongside beautifully roasted seasonal vegetables.',
+                ingredients: [
+                    '4 salmon fillets (6 oz each)',
+                    '½ cup fresh breadcrumbs',
+                    '2 tbsp fresh parsley, minced',
+                    '1 tbsp fresh dill, minced',
+                    '2 garlic cloves, minced',
+                    '2 tbsp Dijon mustard',
+                    '2 tbsp olive oil',
+                    'Salt and pepper',
+                    'Lemon wedges for serving'
+                ],
+                instructions: [
+                    'Preheat oven to 400°F (200°C). Line a baking sheet with parchment paper.',
+                    'Combine breadcrumbs, parsley, dill, garlic, and olive oil in a bowl.',
+                    'Pat salmon dry and season with salt and pepper. Spread Dijon mustard over the top of each fillet.',
+                    'Press herb-breadcrumb mixture onto the mustard-coated salmon.',
+                    'Bake for 12-15 minutes until salmon is cooked through and crust is golden. Serve with lemon wedges.'
+                ]
+            },
+            'zucchini-noodles': {
+                title: 'Zucchini Noodles Primavera',
+                emoji: '🍝',
+                time: '35 min',
+                calories: '280 cal',
+                servings: '4 servings',
+                description: 'Low-carb zucchini noodles tossed with colorful vegetables in a light garlic and olive oil sauce. Perfect for those reducing carbs.',
+                ingredients: [
+                    '4 medium zucchini',
+                    '1 cup cherry tomatoes, halved',
+                    '1 bell pepper, sliced',
+                    '1 cup asparagus, cut into pieces',
+                    '4 garlic cloves, minced',
+                    '¼ cup olive oil',
+                    '¼ cup fresh basil, torn',
+                    'Parmesan cheese for serving',
+                    'Red pepper flakes',
+                    'Salt and pepper'
+                ],
+                instructions: [
+                    'Use a spiralizer or vegetable peeler to create zucchini noodles. Pat dry with paper towels.',
+                    'Heat 2 tablespoons olive oil in a large skillet. Sauté bell pepper and asparagus for 4-5 minutes.',
+                    'Add garlic and cook for 30 seconds until fragrant. Add cherry tomatoes and cook 2 more minutes.',
+                    'Remove vegetables and add remaining oil. Quickly sauté zucchini noodles for 2-3 minutes (don\'t overcook).',
+                    'Return vegetables to pan, toss with basil, season, and serve with Parmesan and red pepper flakes.'
+                ]
+            },
+            'protein-balls': {
+                title: 'Energy Protein Balls',
+                emoji: '🥜',
+                time: '5 min',
+                calories: '150 cal',
+                servings: '12 balls',
+                description: 'No-bake energy bites made with wholesome ingredients. Perfect for pre or post-workout fuel, or a healthy afternoon snack.',
+                ingredients: [
+                    '1 cup old-fashioned oats',
+                    '½ cup almond butter',
+                    '⅓ cup honey',
+                    '½ cup dark chocolate chips',
+                    '2 tbsp ground flaxseed',
+                    '1 tsp vanilla extract',
+                    'Pinch of sea salt'
+                ],
+                instructions: [
+                    'Add all ingredients to a large mixing bowl.',
+                    'Stir until everything is evenly combined. If mixture is too dry, add a bit more honey.',
+                    'Refrigerate mixture for 15-30 minutes to make rolling easier.',
+                    'Roll into 12 balls, about 1 inch each.',
+                    'Store in an airtight container in the refrigerator for up to 2 weeks.'
+                ]
+            },
+            'hummus-platter': {
+                title: 'Hummus Veggie Platter',
+                emoji: '🥒',
+                time: '10 min',
+                calories: '180 cal',
+                servings: '6 servings',
+                description: 'Creamy homemade hummus served with an assortment of colorful fresh-cut vegetables. A nutritious snack for any occasion.',
+                ingredients: [
+                    '1 can chickpeas, drained',
+                    '¼ cup tahini',
+                    '2 tbsp lemon juice',
+                    '2 garlic cloves',
+                    '2 tbsp olive oil',
+                    'Salt and cumin to taste',
+                    'Carrots, celery, bell peppers',
+                    'Cherry tomatoes, cucumber',
+                    'Paprika for garnish'
+                ],
+                instructions: [
+                    'Add chickpeas, tahini, lemon juice, garlic, half the olive oil, salt, and cumin to a food processor.',
+                    'Blend until smooth and creamy, scraping down sides as needed. Add water if too thick.',
+                    'Transfer to a serving bowl and create a well in the center. Drizzle remaining olive oil and sprinkle paprika.',
+                    'Cut vegetables into sticks and arrange around the hummus.',
+                    'Serve immediately or cover and refrigerate. Hummus keeps for up to 5 days.'
+                ]
+            },
+            'yogurt-parfait': {
+                title: 'Greek Yogurt Parfait',
+                emoji: '🍓',
+                time: '15 min',
+                calories: '220 cal',
+                servings: '2 servings',
+                description: 'Beautiful layered parfait with protein-rich Greek yogurt, fresh seasonal berries, crunchy granola, and a drizzle of raw honey.',
+                ingredients: [
+                    '2 cups Greek yogurt',
+                    '1 cup mixed berries',
+                    '½ cup granola',
+                    '2 tbsp raw honey',
+                    '1 tbsp chia seeds',
+                    'Fresh mint for garnish'
+                ],
+                instructions: [
+                    'In glasses or jars, start with a layer of Greek yogurt at the bottom.',
+                    'Add a layer of mixed berries on top of the yogurt.',
+                    'Sprinkle granola over the berries.',
+                    'Repeat layers until glasses are full, ending with berries on top.',
+                    'Drizzle with honey, sprinkle chia seeds, garnish with mint, and serve immediately.'
+                ]
+            },
+            'choco-mousse': {
+                title: 'Avocado Chocolate Mousse',
+                emoji: '🍫',
+                time: '20 min',
+                calories: '250 cal',
+                servings: '4 servings',
+                description: 'Surprisingly decadent chocolate mousse where ripe avocados create the creamy base. Dairy-free, vegan, and absolutely delicious.',
+                ingredients: [
+                    '2 ripe avocados',
+                    '¼ cup cacao powder',
+                    '¼ cup maple syrup',
+                    '¼ cup coconut milk',
+                    '1 tsp vanilla extract',
+                    'Pinch of sea salt',
+                    'Berries for topping',
+                    'Coconut whipped cream'
+                ],
+                instructions: [
+                    'Cut avocados in half, remove pits, and scoop flesh into a food processor.',
+                    'Add cacao powder, maple syrup, coconut milk, vanilla, and salt.',
+                    'Blend until completely smooth and creamy, scraping down sides as needed.',
+                    'Taste and adjust sweetness if desired.',
+                    'Divide into serving cups, refrigerate for 30 minutes, then top with berries and coconut cream.'
+                ]
+            }
+        };
+
+        // ========== DOM ELEMENTS ==========
+        const header = document.getElementById('header');
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const recipeCards = document.querySelectorAll('.recipe-card');
+        const recipeSearch = document.getElementById('recipeSearch');
+        const backToTop = document.getElementById('backToTop');
+        const contactForm = document.getElementById('contactForm');
+        const formSuccess = document.getElementById('formSuccess');
+        const testimonialTrack = document.getElementById('testimonialTrack');
+        const testimonialDots = document.querySelectorAll('.testimonial-dot');
+        const recipeModal = document.getElementById('recipeModal');
+        const modalClose = document.getElementById('modalClose');
+        const recipeButtons = document.querySelectorAll('.recipe-card-btn');
+
+        // ========== HEADER SCROLL EFFECT ==========
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+
+            // Back to top visibility
+            if (window.scrollY > 500) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+
+            // Active nav link on scroll
+            const sections = document.querySelectorAll('section[id]');
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                const sectionHeight = section.offsetHeight;
+                const scrollY = window.scrollY;
+                const sectionId = section.getAttribute('id');
+
+                if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${sectionId}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        });
+
+        // ========== MOBILE MENU ==========
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // ========== RECIPE FILTERING ==========
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const filter = btn.dataset.filter;
+
+                recipeCards.forEach(card => {
+                    if (filter === 'all' || card.dataset.category === filter) {
+                        card.classList.remove('hidden');
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                });
+            });
+        });
+
+        // ========== RECIPE SEARCH ==========
+        recipeSearch.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+
+            recipeCards.forEach(card => {
+                const title = card.querySelector('.recipe-card-title').textContent.toLowerCase();
+                const description = card.querySelector('.recipe-card-description').textContent.toLowerCase();
+
+                if (title.includes(searchTerm) || description.includes(searchTerm)) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+
+            // Reset filter buttons when searching
+            if (searchTerm) {
+                filterBtns.forEach(btn => btn.classList.remove('active'));
+            } else {
+                filterBtns[0].classList.add('active');
+            }
+        });
+
+        // ========== RECIPE MODAL ==========
+        recipeButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const recipeId = btn.dataset.recipe;
+                const recipe = recipes[recipeId];
+
+                if (recipe) {
+                    document.getElementById('modalImg').textContent = recipe.emoji;
+                    document.getElementById('modalTitle').textContent = recipe.title;
+                    document.getElementById('modalTime').textContent = `⏱ ${recipe.time}`;
+                    document.getElementById('modalCal').textContent = `🔥 ${recipe.calories}`;
+                    document.getElementById('modalServings').textContent = `👥 ${recipe.servings}`;
+                    document.getElementById('modalDescription').textContent = recipe.description;
+
+                    const ingredientsList = document.getElementById('modalIngredients');
+                    ingredientsList.innerHTML = recipe.ingredients.map(ing => `<li>${ing}</li>`).join('');
+
+                    const instructionsList = document.getElementById('modalInstructions');
+                    instructionsList.innerHTML = recipe.instructions.map(inst => `<li>${inst}</li>`).join('');
+
+                    recipeModal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }
+            });
+        });
+
+        modalClose.addEventListener('click', () => {
+            recipeModal.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+
+        recipeModal.addEventListener('click', (e) => {
+            if (e.target === recipeModal) {
+                recipeModal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // ========== TESTIMONIAL SLIDER ==========
+        let currentSlide = 0;
+
+        function goToSlide(index) {
+            currentSlide = index;
+            testimonialTrack.style.transform = `translateX(-${index * 100}%)`;
+            testimonialDots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
+        }
+
+        testimonialDots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                goToSlide(parseInt(dot.dataset.slide));
+            });
+        });
+
+        // Auto-slide testimonials
+        setInterval(() => {
+            currentSlide = (currentSlide + 1) % 3;
+            goToSlide(currentSlide);
+        }, 5000);
+
+        // ========== BACK TO TOP ==========
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // ========== CONTACT FORM VALIDATION ==========
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            let isValid = true;
+
+            const name = document.getElementById('name');
+            const email = document.getElementById('email');
+            const message = document.getElementById('message');
+
+            // Reset errors
+            document.querySelectorAll('.form-group').forEach(group => {
+                group.classList.remove('error');
+            });
+
+            // Validate name
+            if (name.value.trim() === '') {
+                name.parentElement.classList.add('error');
+                isValid = false;
+            }
+
+            // Validate email
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email.value)) {
+                email.parentElement.classList.add('error');
+                isValid = false;
+            }
+
+            // Validate message
+            if (message.value.trim() === '') {
+                message.parentElement.classList.add('error');
+                isValid = false;
+            }
+
+            if (isValid) {
+                formSuccess.classList.add('show');
+                contactForm.reset();
+                setTimeout(() => {
+                    formSuccess.classList.remove('show');
+                }, 5000);
+            }
+        });
+
+        // ========== SCROLL REVEAL ANIMATION ==========
+        function revealOnScroll() {
+            const reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+
+            reveals.forEach(element => {
+                const windowHeight = window.innerHeight;
+                const elementTop = element.getBoundingClientRect().top;
+                const revealPoint = 150;
+
+                if (elementTop < windowHeight - revealPoint) {
+                    element.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', revealOnScroll);
+        window.addEventListener('load', revealOnScroll);
+
+        // ========== SMOOTH SCROLL FOR NAV LINKS ==========
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const headerHeight = header.offsetHeight;
+                    const targetPosition = target.offsetTop - headerHeight;
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // ========== ESCAPE KEY TO CLOSE MODAL ==========
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && recipeModal.classList.contains('active')) {
+                recipeModal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+    </script>
+</body>
+</html>
