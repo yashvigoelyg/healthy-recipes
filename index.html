@@ -423,6 +423,42 @@
     </div>
   </footer>
 
+  <!-- ═══════ CHATBOT ═══════ -->
+  <div class="chatbot" id="chatbot">
+    <div class="chatbot__toggle" id="chatbotToggle" aria-label="Open chat assistant">
+      <i class="fa-solid fa-comment-dots chatbot__toggle-icon"></i>
+      <i class="fa-solid fa-xmark chatbot__toggle-close"></i>
+      <span class="chatbot__pulse"></span>
+    </div>
+    <div class="chatbot__window" id="chatbotWindow">
+      <div class="chatbot__header">
+        <div class="chatbot__header-info">
+          <div class="chatbot__avatar">🍃</div>
+          <div>
+            <h4>VitalSip Assistant</h4>
+            <span class="chatbot__status"><span class="chatbot__status-dot"></span> Online</span>
+          </div>
+        </div>
+        <button class="chatbot__close" id="chatbotClose" aria-label="Close chat"><i class="fa-solid fa-minus"></i></button>
+      </div>
+      <div class="chatbot__messages" id="chatbotMessages">
+        <!-- Messages will be injected here -->
+      </div>
+      <div class="chatbot__suggestions" id="chatbotSuggestions">
+        <button class="chatbot__chip" data-query="What are healthy beverages?">🍵 What are healthy beverages?</button>
+        <button class="chatbot__chip" data-query="Give me a smoothie recipe">🥤 Smoothie recipe</button>
+        <button class="chatbot__chip" data-query="What are the benefits?">💪 Health benefits</button>
+        <button class="chatbot__chip" data-query="Types of beverages">📋 Beverage types</button>
+      </div>
+      <div class="chatbot__input-area">
+        <input type="text" class="chatbot__input" id="chatbotInput" placeholder="Ask about healthy beverages..." />
+        <button class="chatbot__send" id="chatbotSend" aria-label="Send message">
+          <i class="fa-solid fa-paper-plane"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
   <script src="script.js"></script>
 </body>
 </html>
